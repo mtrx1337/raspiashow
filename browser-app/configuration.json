@@ -1,0 +1,12 @@
+{
+    "configuration": {
+
+        "domains": [
+            "https://google.com/",
+            "https://youtube.com/",
+            "https://reddit.com/"
+        ],
+
+        "switch_time" : 5
+    }
+}
