@@ -6,19 +6,18 @@ MOUNT_POINT="/mnt/raspiashow"
 # clean up mounts, mount directories, etc...
 clean_up() {
     echo "UNMOUNTING PARTITIONS"
-    umount $MOUNT_POINT
-    if [[ $? -ne 0 ]]; then echo "Could not unmount partitions, exiting."; $(clean_up); exit 1; fi
-
-    #rm -rf "$MOUNT_POINT"
+    umount -A $MOUNT_POINT
 
     REMAINING_LP_DEV=$(losetup -a | awk '{print $1}' | sed 's/://')
     echo "REMOVING LOOP DEVICE"
-    if [[ -z "$REMAINING_LP_DEV" ]]
+    if ! [[ -z "$REMAINING_LP_DEV" ]]
     then
         for dev in "$REMAINING_LP_DEV"
         do losetup -d $dev
         done
     fi
+
+    #rm -rf "$MOUNT_POINT"
 }
 
 # check if at least one commandline parameter was supplied
@@ -49,8 +48,8 @@ LOSETUP_MOUNT_OUTPUT=$(losetup -v -f "$IMAGE")
 # which loop device was used?
 LOOP_DEV=$(losetup -a | tail -n 1 | awk '{print $1}' | sed 's/://')
 # add partitions to loop device
-#partx -v --add $LOOP_DEV
-LP_DEV_PARTITIONS=$(blkid | grep loop | awk '{print $1}' | sed 's/://')
+partx -v --add $LOOP_DEV &> /dev/null
+LP_DEV_PARTITIONS=$(blkid | grep "$LOOP_DEV" | awk '{print $1}' | sed 's/://')
 
 
 
@@ -61,15 +60,12 @@ echo "MOUNTING PARTITIONS"
 # create mount directory for the partitions
 test -d "$MOUNT_POINT" || mkdir "$MOUNT_POINT"
 
-# mount all partitions
-for part in $LP_DEV_PARTITIONS
-do
-    echo $part
-    mount $part $MOUNT_POINT
-    if [[ $? -ne 0 ]]; then echo "Could not mount partitions, exiting."; clean_up; exit 1; fi
-done
+# only mount the first partition
+part=$(echo "$LP_DEV_PARTITIONS" | tail -n 1)
+mount $part $MOUNT_POINT
+if [[ $? -ne 0 ]]; then echo "Could not mount partitions, exiting."; clean_up; exit 1; fi
 
 ###### do stuff with them ######
 ls /mnt/raspiashow
 
-$(clean_up)
+clean_up $LP_DEV_PARTITIONS
