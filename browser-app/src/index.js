@@ -33,10 +33,10 @@ function sleep(ms) {
         if (config !== undefined) {
             // download config and navigate to each page specified with the delay specified
             for (domain of config['domains']) {
-                let page = await browser.pages()[0];
-                await page.goto(domain);
+                let pages = await browser.pages();
+                await pages[0].goto(domain);
                 // TODO read css links or styles from configuration.json
-                await page.addStyleTag({content: '::-webkit-scrollbar {display: none;}'});
+                await pages[0].addStyleTag({content: '::-webkit-scrollbar {display: none;}'});
                 await sleep(config['switch_time']);
             }
         }
