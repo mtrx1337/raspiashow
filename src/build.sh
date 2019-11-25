@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Global Vars
-MOUNT_POINT="/mnt/raspiashow"
+export MOUNT_POINT="/mnt/raspiashow"
 
 # clean up mounts, mount directories, etc...
 clean_up() {
@@ -66,6 +66,6 @@ mount $part $MOUNT_POINT
 if [[ $? -ne 0 ]]; then echo "Could not mount partitions, exiting."; clean_up; exit 1; fi
 
 ###### do stuff with them ######
-ls /mnt/raspiashow
+source image-prepare.sh
 
 clean_up $LP_DEV_PARTITIONS
