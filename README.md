@@ -24,7 +24,7 @@ Optionally, you can inject a custom css file. If you don't want to, just leave t
 {                                                                                                                
     "configuration": {                                                          
         "domains": [                                                            
-            [ "reddit.com", 5 ],                                  
+            [ "https://reddit.com", 5 ],                                  
             [ "https://google.com", 20, "https://example.com/files/removebackground.css" ]
         ]                                                                       
     }                                                                           
