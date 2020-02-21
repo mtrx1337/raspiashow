@@ -8,20 +8,8 @@ function sleep(ms) {
 }
 
 (async () => {
-    const browser = await puppeteer.launch({
-        headless: false,
-        defaultViewport: null,
-        ignoreDefaultArgs: [
-            '--enable-automation'
-        ],
-        args: [
-            '--hide-scrollbars',
-            '--no-default-browser-check',
-            '--start-fullscreen',
-            '--disable-notifications'
-        ]
-    });
 
+<<<<<<< HEAD:src/index.js
     let config = undefined;
     while (true) {
         await fetch('{{configurationURL}}')
@@ -54,7 +42,45 @@ function sleep(ms) {
 
                 // wait n amount of seconds between pages
                 await sleep(domain[1] * 1000);
+=======
+
+    try {
+        browser = await puppeteer.launch({
+            headless: false,
+            executablePath: '/usr/bin/chromium-browser',
+            defaultViewport: null,
+            ignoreDefaultArgs: [
+                '--enable-automation'
+            ],
+            args: [
+                '--hide-scrollbars',
+                '--no-default-browser-check',
+                '--start-fullscreen',
+                '--disable-notifications'
+            ]
+        });
+
+        let config = undefined;
+        while (true) {
+            await fetch('{{configurationURL}}')
+                .then(x => { return x.text() })
+                .then(x => {
+                    console.log(x);
+                    config = JSON.parse(x)['configuration'];
+                });
+            if (config !== undefined) {
+                // download config and navigate to each page specified with the delay specified
+                for (domain of config['domains']) {
+                    let pages = await browser.pages();
+                    await pages[0].goto(domain);
+                    // TODO read css links or styles from configuration.json
+                    await pages[0].addStyleTag({content: '::-webkit-scrollbar {display: none;}'});
+                    await sleep(config['switch_time']);
+                }
+>>>>>>> 0b0639406ea814459b30ec8793babd999aa49942:src/browser-app/src/index.js
             }
         }
+    } catch (err) {
+        console.error(err.message);
     }
 })();
