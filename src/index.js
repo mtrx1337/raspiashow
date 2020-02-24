@@ -22,7 +22,7 @@ function sleep(ms) {
             args: [
                 '--hide-scrollbars',
                 '--no-default-browser-check',
-                //'--start-fullscreen',
+                '--start-fullscreen',
                 '--disable-notifications'
             ]
         });
@@ -35,7 +35,7 @@ function sleep(ms) {
     await page.setCacheEnabled(false);
     while (true) {
         try {
-            await fetch('https://leonardlorenz.de/files/configuration.json')
+            await fetch('configurationURL')
                 .then(x => { return x.text() })
                 .then(x => {
                     config = JSON.parse(x)['configuration'];
