@@ -1,3 +1,7 @@
+![NodeJS](https://img.shields.io/badge/Language-NodeJS-green)
+![Puppeteer](https://img.shields.io/badge/Uses-Puppeteer-purple)
+![Configuration](https://img.shields.io/badge/Configuration-Remote-lightgrey)
+
 # What is Raspiashow?
 
 Raspiashow is a small program that will display and cycle through websites. To configure the displayed websites a remote configuration file is used so you don't have to edit a configuration file on the device you're running the program.
