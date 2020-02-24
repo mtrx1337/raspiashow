@@ -23,9 +23,9 @@ The configuration of the TV app is specified in a json file (example below). It 
     
 Domains must include the `https://` prefix.
     
-## Timeouts
+## Switch time
 
-Per domain you can specify a timeout, which will trigger the next site.
+Per domain you can specify a timeout in seconds, which will trigger the next site when ran out.
 
 ## CSS Injection
 
