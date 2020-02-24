@@ -16,23 +16,32 @@ Domains must follow the https://xxxxx.yy/zzzzzz scheme.
 
 Per domain you can specify a timeout, which will trigger the next site.
 
+## JS Injection
+
+Optionally, you can inject a custom css file with the "css" parameter. If you don't want to, just leave the third item in the list blank.
+
 ## CSS Injection
 
-```
-[ "https://google.com", 20, "https://example.com/files/removebackground.css" ]
-```
-
-Optionally, you can inject a custom css file. If you don't want to, just leave the third item in the list blank.
+Optionally, you can inject a custom css file with the "css" parameter. If you don't want to, just leave the third item in the list blank.
 
 # Reference configuration file
 
 ```json
-{                                                                                                                
-    "configuration": {                                                          
-        "domains": [                                                            
-            [ "https://reddit.com", 5 ],                                  
-            [ "https://google.com", 20, "https://example.com/files/removebackground.css" ]
-        ]                                                                       
-    }                                                                           
-}  
+{
+    "configuration": {
+        "domains": [
+            {
+                "url": "https://mycompany.com/blog/",
+                "switch-time": 60
+            },
+            {
+                "url": "https://reddit.com/",
+                "switch-time": 60,
+                "css": "https://example.com/files/custom.css"
+                "js": "https://example.com/files/custom.js"
+            }
+        ]
+    }
+}
 ```
+
