@@ -45,3 +45,6 @@ Optionally, you can inject a custom css file with the "css" parameter. If you do
 }
 ```
 
+# Installation on a Raspberry Pi using Raspbian
+    
+[See here](doc/raspberry.md)
