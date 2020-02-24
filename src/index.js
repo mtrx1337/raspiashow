@@ -11,6 +11,12 @@ function sleep(ms) {
     let browser = undefined;
     let config = undefined;
 
+    let config_url = process.env.RASPIASHOW_CONFIG_URL;
+    if (config_url === undefined) {
+        console.log("You need to set a configuration file URL in the RASPIASHOW_CONFIG_URL environment variable.");
+        process.exit();
+    }
+
     try {
         browser = await puppeteer.launch({
             headless: false,
@@ -28,6 +34,7 @@ function sleep(ms) {
         });
     } catch (e) {
         console.log("Couldn't start browser.");
+        process.exit();
     }
 
     let pages = await browser.pages();
@@ -35,7 +42,7 @@ function sleep(ms) {
     await page.setCacheEnabled(false);
     while (true) {
         try {
-            await fetch('configurationURL')
+            await fetch(config_url)
                 .then(x => { return x.text() })
                 .then(x => {
                     config = JSON.parse(x)['configuration'];
