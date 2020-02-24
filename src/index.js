@@ -27,12 +27,16 @@ function sleep(ms) {
     let page = pages[0];
     await page.setCacheEnabled(false);
     while (true) {
-        await fetch('{{configurationURL}}')
-            .then(x => { return x.text() })
-            .then(x => {
-                console.log(x);
-                config = JSON.parse(x)['configuration'];
-            });
+        try {
+            await fetch('{{configurationURL}}')
+                .then(x => { return x.text() })
+                .then(x => {
+                    console.log(x);
+                    config = JSON.parse(x)['configuration'];
+                });
+        } catch {
+            console.log("Couldn't fetch configuration");
+        }
 
         if (typeof(config) != "undefined") {
             // download config and navigate to each page specified with the delay specified
