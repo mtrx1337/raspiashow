@@ -1,1 +1,1 @@
-[ -f $HOME/.bashrc ] && . $HOME/.bashrc && startx
+[ -f $HOME/.bashrc ] && . $HOME/.bashrc && startx -- -nocursor
