@@ -6,6 +6,11 @@ This project is intended to be run on a RaspberryPi with a minimal Raspbian imag
 
 ![A demonstration](https://leonardlorenz.de/files/raspiashow.gif)
 
+
+# Installation on a Raspberry Pi using Raspbian
+    
+[See here](doc/raspberry.md)
+
 # Configuration
 
 The configuration of the TV app is specified in a json file (example below). It has to be hosted on some kind of webserver so the application can fetch it. The URL to the configuration file has to be specified when building the image. Several options are supported.
@@ -46,7 +51,3 @@ Optionally, you can inject a custom css file with the "css" parameter. If you do
     }
 }
 ```
-
-# Installation on a Raspberry Pi using Raspbian
-    
-[See here](doc/raspberry.md)
