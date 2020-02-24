@@ -27,13 +27,9 @@ Domains must follow the https://xxxxx.yy/zzzzzz scheme.
 
 Per domain you can specify a timeout, which will trigger the next site.
 
-## JS Injection
-
-Optionally, you can inject a custom css file with the "css" parameter. If you don't want to, just leave the third item in the list blank.
-
 ## CSS Injection
 
-Optionally, you can inject a custom css file with the "css" parameter. If you don't want to, just leave the third item in the list blank.
+Optionally, you can inject a custom js / css file from a URL with the "css" and "js" parameter.
 
 # Reference configuration file
 
