@@ -23,6 +23,9 @@ function sleep(ms) {
         ]
     });
     let config = undefined;
+    let pages = await browser.pages();
+    let page = pages[0];
+    await page.setCacheEnabled(false);
     while (true) {
         await fetch('{{configurationURL}}')
             .then(x => { return x.text() })
@@ -33,19 +36,18 @@ function sleep(ms) {
 
         if (typeof(config) != "undefined") {
             // download config and navigate to each page specified with the delay specified
-            let pages = await browser.pages();
             for (domain of config['domains']) {
 
                 // navigate to specified domain
-                await pages[0].goto(domain[0]);
+                await page.goto(domain[0]);
 
                 // disable scrollbars
-                await pages[0].addStyleTag({content: '::-webkit-scrollbar {display: none;}'});
+                await page.addStyleTag({content: '::-webkit-scrollbar {display: none;}'});
 
                 // optional css injection
                 if (typeof(domain[2]) != "undefined") {
                     try {
-                        await pages[0].addStyleTag({url: domain[2]});
+                        await page.addStyleTag({url: domain[2]});
                     } catch (e) {
                         console.log("Couldn't fetch styles: " + domain[2]);
                         continue;
