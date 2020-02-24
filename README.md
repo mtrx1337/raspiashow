@@ -4,6 +4,8 @@ Raspiashow is a small program that will display and cycle through websites. To c
 
 This project is intended to be run on a RaspberryPi with a minimal Raspbian image.
 
+![A demonstration](https://leonardlorenz.de/files/raspiashow.gif)
+
 # Configuration
 
 The configuration of the TV app is specified in a json file (example below). It has to be hosted on some kind of webserver so the application can fetch it. The URL to the configuration file has to be specified when building the image. Several options are supported.
