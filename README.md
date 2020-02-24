@@ -37,7 +37,7 @@ Optionally, you can inject a custom css file with the "css" parameter. If you do
             {
                 "url": "https://reddit.com/",
                 "switch-time": 60,
-                "css": "https://example.com/files/custom.css"
+                "css": "https://example.com/files/custom.css",
                 "js": "https://example.com/files/custom.js"
             }
         ]
