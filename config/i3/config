@@ -38,6 +38,6 @@ bar {
         status_command i3status
 }
 
-exec_always (cd ~/raspiashow/src/browser-app && yarnpkg start)
+exec_always (cd ~/raspiashow && yarnpkg start)
 exec_always xset s 0
 exec_always xset -dpms

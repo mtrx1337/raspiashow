@@ -103,7 +103,7 @@ export RASPIASHOW_CONFIG_URL=https://my.domain.tld/configuration.json
 ```
 
 The best way to set this permanently would be inside the `~/.bash_profile`.
-Just stick the line from above at the end of it.
+Just stick the line from above at the top of the file.
 
 Reboot your RPi. If your configuration file is valid, it should start up
 a chromium instance displaying whatever you configured it to.
