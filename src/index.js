@@ -8,42 +8,6 @@ function sleep(ms) {
 }
 
 (async () => {
-
-<<<<<<< HEAD:src/index.js
-    let config = undefined;
-    while (true) {
-        await fetch('{{configurationURL}}')
-            .then(x => { return x.text() })
-            .then(x => {
-                console.log(x);
-                config = JSON.parse(x)['configuration'];
-            });
-
-        if (typeof(config) != "undefined") {
-            // download config and navigate to each page specified with the delay specified
-            let pages = await browser.pages();
-            for (domain of config['domains']) {
-
-                // navigate to specified domain
-                await pages[0].goto(domain[0]);
-
-                // disable scrollbars
-                await pages[0].addStyleTag({content: '::-webkit-scrollbar {display: none;}'});
-
-                // optional css injection
-                if (typeof(domain[2]) != "undefined") {
-                    try {
-                        await pages[0].addStyleTag({url: domain[2]});
-                    } catch (e) {
-                        console.log("Couldn't fetch styles: " + domain[2]);
-                        continue;
-                    }
-                }
-
-                // wait n amount of seconds between pages
-                await sleep(domain[1] * 1000);
-=======
-
     try {
         browser = await puppeteer.launch({
             headless: false,
@@ -59,7 +23,6 @@ function sleep(ms) {
                 '--disable-notifications'
             ]
         });
-
         let config = undefined;
         while (true) {
             await fetch('{{configurationURL}}')
@@ -68,19 +31,34 @@ function sleep(ms) {
                     console.log(x);
                     config = JSON.parse(x)['configuration'];
                 });
-            if (config !== undefined) {
+
+            if (typeof(config) != "undefined") {
                 // download config and navigate to each page specified with the delay specified
+                let pages = await browser.pages();
                 for (domain of config['domains']) {
-                    let pages = await browser.pages();
-                    await pages[0].goto(domain);
-                    // TODO read css links or styles from configuration.json
+
+                    // navigate to specified domain
+                    await pages[0].goto(domain[0]);
+
+                    // disable scrollbars
                     await pages[0].addStyleTag({content: '::-webkit-scrollbar {display: none;}'});
-                    await sleep(config['switch_time']);
+
+                    // optional css injection
+                    if (typeof(domain[2]) != "undefined") {
+                        try {
+                            await pages[0].addStyleTag({url: domain[2]});
+                        } catch (e) {
+                            console.log("Couldn't fetch styles: " + domain[2]);
+                            continue;
+                        }
+                    }
+
+                    // wait n amount of seconds between pages
+                    await sleep(domain[1] * 1000);
                 }
->>>>>>> 0b0639406ea814459b30ec8793babd999aa49942:src/browser-app/src/index.js
             }
+        } catch (err) {
+            console.error(err.message);
         }
-    } catch (err) {
-        console.error(err.message);
     }
 })();
