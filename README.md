@@ -21,7 +21,7 @@ The configuration of the TV app is specified in a json file (example below). It 
 
 ## Domains
     
-Domains must follow the https://xxxxx.yy/zzzzzz scheme.
+Domains must include the `https://` prefix.
     
 ## Timeouts
 
