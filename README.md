@@ -27,7 +27,7 @@ Domains must include the `https://` prefix.
 
 Per domain you can specify a timeout in seconds, which will trigger the next site when ran out.
 
-## CSS Injection
+## JS / CSS Injection
 
 Optionally, you can inject a custom js / css file from a URL with the "css" and "js" parameter.
 
